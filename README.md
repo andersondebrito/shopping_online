@@ -1,3 +1,3 @@
 # shopping_online
 
-Online Shopping with Spring Boot and Kubernetes
+Shopping Online with Spring Boot and Kubernetes
