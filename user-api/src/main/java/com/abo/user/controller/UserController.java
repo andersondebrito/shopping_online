@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    public static List<UserDTO> usuarios = new ArrayList<UserDTO>();
+    public static List<UserDTO> users = new ArrayList<UserDTO>();
 
     @GetMapping("/")
     public String getMessage() {
@@ -19,13 +19,13 @@ public class UserController {
 
     @GetMapping("/users")
     public List<UserDTO> getUsers() {
-        return usuarios;
+        return users;
     }
 
-    @GetMapping("/users/{cpf}")
-    public UserDTO getUsersFilter(@PathVariable String cpf) {
-        for (UserDTO userFilter: usuarios) {
-            if (userFilter.getId().equals(cpf)) {
+    @GetMapping("/users/{identification}")
+    public UserDTO getUsersFilter(@PathVariable String identification) {
+        for (UserDTO userFilter: users) {
+            if (userFilter.getIdentification().equals(identification)) {
                 return userFilter;
             }
         }
@@ -35,15 +35,15 @@ public class UserController {
     @PostMapping("/newUser")
     UserDTO insert(@RequestBody UserDTO userDTO) {
         userDTO.setRegisterDate(new Date());
-        usuarios.add(userDTO);
+        users.add(userDTO);
         return userDTO;
     }
 
-    @DeleteMapping("/user/{cpf}")
-    public boolean delete(@PathVariable String cpf) {
-        for (UserDTO userFilter: usuarios) {
-            if (userFilter.getId().equals(cpf)) {
-                usuarios.remove(userFilter);
+    @DeleteMapping("/user/{identification}")
+    public boolean delete(@PathVariable String identification) {
+        for (UserDTO userFilter: users) {
+            if (userFilter.getIdentification().equals(identification)) {
+                users.remove(userFilter);
                 return true;
             }
         }
