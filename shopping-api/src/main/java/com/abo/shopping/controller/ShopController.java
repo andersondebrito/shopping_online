@@ -1,11 +1,14 @@
 package com.abo.shopping.controller;
 
 import com.abo.shopping.dto.ShopDTO;
+import com.abo.shopping.dto.ShopReportDTO;
 import com.abo.shopping.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -42,5 +45,25 @@ public class ShopController {
     @PostMapping("/shopping")
     public ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO) {
         return shopService.save(shopDTO);
+    }
+
+    @GetMapping("/shopping/search")
+    public List<ShopDTO> getShopsByFilter(
+            @RequestParam(name = "startDate", required=true)
+            @DateTimeFormat(pattern = "dd/MM/yyyy") Date startDate,
+            @RequestParam(name = "endDate", required=false)
+            @DateTimeFormat(pattern = "dd/MM/yyyy") Date endDate,
+            @RequestParam(name = "mininumValue", required=false)
+                    Float mininumValue) {
+        return shopService.getShopsByFilter(startDate, endDate, mininumValue);
+    }
+
+    @GetMapping("/shopping/report")
+    public ShopReportDTO getReportByDate(
+            @RequestParam(name = "startDate", required=true)
+            @DateTimeFormat(pattern = "dd/MM/yyyy") Date startDate,
+            @RequestParam(name = "endDate", required=true)
+            @DateTimeFormat(pattern = "dd/MM/yyyy") Date endDate) {
+        return shopService.getReportByDate(startDate, endDate);
     }
 }

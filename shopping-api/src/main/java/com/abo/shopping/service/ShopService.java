@@ -1,7 +1,9 @@
 package com.abo.shopping.service;
 
 import com.abo.shopping.dto.ShopDTO;
+import com.abo.shopping.dto.ShopReportDTO;
 import com.abo.shopping.model.Shop;
+import com.abo.shopping.repository.ReportRepository;
 import com.abo.shopping.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class ShopService {
 
     @Autowired
     private ShopRepository shopRepository;
+
+    @Autowired
+    private ReportRepository reportRepository;
 
     public List<ShopDTO> getAll() {
         List<Shop> shops = shopRepository.findAll();
@@ -60,6 +65,25 @@ public class ShopService {
         shop.setDate(new Date());
         shop = shopRepository.save(shop);
         return ShopDTO.convert(shop);
+    }
+
+    public List<ShopDTO> getShopsByFilter(
+            Date startDate,
+            Date endDate,
+            Float mininumValue) {
+        List<Shop> shops =
+                reportRepository
+                        .getShopByFilters(startDate, endDate, mininumValue);
+        return shops
+                .stream()
+                .map(ShopDTO::convert)
+                .collect(Collectors.toList());
+    }
+    public ShopReportDTO getReportByDate(
+            Date startDate,
+            Date endDate) {
+        return reportRepository
+                .getReportByDate(startDate, endDate);
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
+@Entity(name = "shop")
 public class Shop {
 
     @Id
