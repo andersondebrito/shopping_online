@@ -1,6 +1,7 @@
 package com.abo.user.service;
 
 import com.abo.shoppingclient.dto.UserDTO;
+import com.abo.shoppingclient.exception.UserNotFoundException;
 import com.abo.user.converter.DTOConverter;
 import com.abo.user.model.User;
 import com.abo.user.repository.UserRepository;
@@ -30,7 +31,8 @@ public class UserService {
         if (usuario.isPresent()) {
             return DTOConverter.convert(usuario.get());
         }
-        return null;
+
+        throw new UserNotFoundException();
     }
 
     public UserDTO save(UserDTO userDTO) {
