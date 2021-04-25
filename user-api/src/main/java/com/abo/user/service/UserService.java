@@ -1,6 +1,7 @@
 package com.abo.user.service;
 
-import com.abo.user.dto.UserDTO;
+import com.abo.shoppingclient.dto.UserDTO;
+import com.abo.user.converter.DTOConverter;
 import com.abo.user.model.User;
 import com.abo.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +21,21 @@ public class UserService {
         List<User> usuarios = userRepository.findAll();
         return usuarios
                 .stream()
-                .map(UserDTO::convert)
+                .map(DTOConverter::convert)
                 .collect(Collectors.toList());
     }
 
     public UserDTO findById(long userId) {
         Optional<User> usuario = userRepository.findById(userId);
         if (usuario.isPresent()) {
-            return UserDTO.convert(usuario.get());
+            return DTOConverter.convert(usuario.get());
         }
         return null;
     }
 
     public UserDTO save(UserDTO userDTO) {
-        User user = userRepository.save(User.convert(userDTO));
-        return UserDTO.convert(user);
+        User user = userRepository.save(DTOConverter.convert(userDTO));
+        return DTOConverter.convert(user);
     }
 
     public UserDTO delete(long userId) {
@@ -48,7 +49,7 @@ public class UserService {
     public UserDTO findByIdentification(String identification) {
         User user = userRepository.findByIdentification(identification);
         if (user != null) {
-            return UserDTO.convert(user);
+            return DTOConverter.convert(user);
         }
         return null;
     }
@@ -57,7 +58,7 @@ public class UserService {
         List<User> usuarios = userRepository.queryByNameLike(name);
         return usuarios
                 .stream()
-                .map(UserDTO::convert)
+                .map(DTOConverter::convert)
                 .collect(Collectors.toList());
     }
 }

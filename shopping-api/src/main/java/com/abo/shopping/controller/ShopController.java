@@ -1,8 +1,8 @@
 package com.abo.shopping.controller;
 
-import com.abo.shopping.dto.ShopDTO;
-import com.abo.shopping.dto.ShopReportDTO;
 import com.abo.shopping.service.ShopService;
+import com.abo.shoppingclient.dto.ShopDTO;
+import com.abo.shoppingclient.dto.ShopReportDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;

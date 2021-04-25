@@ -1,6 +1,4 @@
-package com.abo.product.dto;
-
-import com.abo.product.model.Product;
+package com.abo.shoppingclient.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -55,20 +53,6 @@ public class ProductDTO {
 
     public void setCategory(CategoryDTO categoryDTO) {
         this.category = categoryDTO;
-    }
-
-    public static ProductDTO convert(Product product) {
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setName(product.getName());
-        productDTO.setPrice(product.getPrice());
-        productDTO.setProductIdentifier(
-                product.getProductIdentifier());
-        productDTO.setDescription(product.getDescription());
-        if (product.getCategory() != null) {
-            productDTO.setCategory(
-                    CategoryDTO.convert(product.getCategory()));
-        }
-        return productDTO;
     }
 
 }

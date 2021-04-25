@@ -1,10 +1,13 @@
 package com.abo.shopping.service;
 
-import com.abo.shopping.dto.ShopDTO;
-import com.abo.shopping.dto.ShopReportDTO;
+import com.abo.shopping.converter.DTOConverter;
 import com.abo.shopping.model.Shop;
 import com.abo.shopping.repository.ReportRepository;
 import com.abo.shopping.repository.ShopRepository;
+import com.abo.shoppingclient.dto.ItemDTO;
+import com.abo.shoppingclient.dto.ProductDTO;
+import com.abo.shoppingclient.dto.ShopDTO;
+import com.abo.shoppingclient.dto.ShopReportDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +25,18 @@ public class ShopService {
     @Autowired
     private ReportRepository reportRepository;
 
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private UserService userService;
+
+
     public List<ShopDTO> getAll() {
         List<Shop> shops = shopRepository.findAll();
         return shops
                 .stream()
-                .map(ShopDTO::convert)
+                .map(DTOConverter::convert)
                 .collect(Collectors.toList());
     }
 
@@ -35,7 +45,7 @@ public class ShopService {
                 .findAllByUserIdentifier(userIdentifier);
         return shops
                 .stream()
-                .map(ShopDTO::convert)
+                .map(DTOConverter::convert)
                 .collect(Collectors.toList());
     }
 
@@ -44,27 +54,34 @@ public class ShopService {
                 .findAllByDateGreaterThan(shopDTO.getDate());
         return shops
                 .stream()
-                .map(ShopDTO::convert)
+                .map(DTOConverter::convert)
                 .collect(Collectors.toList());
     }
 
     public ShopDTO findById(long ProductId) {
         Optional<Shop> shop = shopRepository.findById(ProductId);
         if (shop.isPresent()) {
-            return ShopDTO.convert(shop.get());
+            return DTOConverter.convert(shop.get());
         }
         return null;
     }
 
     public ShopDTO save(ShopDTO shopDTO) {
+        if (userService
+                .getUserByCpf(shopDTO.getUserIdentifier()) == null) {
+            return null;
+        }
+        if (!validateProducts(shopDTO.getItems())) {
+            return null;
+        }
         shopDTO.setTotal(shopDTO.getItems()
-                        .stream()
-                        .map(x -> x.getPrice())
-                        .reduce((float) 0, Float::sum));
-        Shop shop = Shop.convert(shopDTO);
+                .stream()
+                .map(x -> x.getPrice())
+                .reduce((float) 0, Float::sum));
+        Shop shop = DTOConverter.convert(shopDTO);
         shop.setDate(new Date());
         shop = shopRepository.save(shop);
-        return ShopDTO.convert(shop);
+        return DTOConverter.convert(shop);
     }
 
     public List<ShopDTO> getShopsByFilter(
@@ -76,7 +93,7 @@ public class ShopService {
                         .getShopByFilters(startDate, endDate, mininumValue);
         return shops
                 .stream()
-                .map(ShopDTO::convert)
+                .map(DTOConverter::convert)
                 .collect(Collectors.toList());
     }
     public ShopReportDTO getReportByDate(
@@ -84,6 +101,19 @@ public class ShopService {
             Date endDate) {
         return reportRepository
                 .getReportByDate(startDate, endDate);
+    }
+
+    private boolean validateProducts(List<ItemDTO> items) {
+        for (ItemDTO  item : items) {
+            ProductDTO productDTO = productService
+                    .getProductByIdentifier(
+                            item.getProductIdentifier());
+            if (productDTO == null) {
+                return false;
+            }
+            item.setPrice(productDTO.getPrice());
+        }
+        return true;
     }
 
 }

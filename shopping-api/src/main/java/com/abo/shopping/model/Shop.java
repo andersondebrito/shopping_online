@@ -1,6 +1,6 @@
 package com.abo.shopping.model;
 
-import com.abo.shopping.dto.ShopDTO;
+import com.abo.shoppingclient.dto.ShopDTO;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -61,16 +61,4 @@ public class Shop {
         this.items = items;
     }
 
-    public static Shop convert(ShopDTO shopDTO) {
-        Shop shop = new Shop();
-        shop.setUserIdentifier(shopDTO.getUserIdentifier());
-        shop.setTotal(shopDTO.getTotal());
-        shop.setDate(shopDTO.getDate());
-        shop.setItems(shopDTO
-                .getItems()
-                .stream()
-                .map(Item::convert)
-                .collect(Collectors.toList()));
-        return shop;
-    }
 }

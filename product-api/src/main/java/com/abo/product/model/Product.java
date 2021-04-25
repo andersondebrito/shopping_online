@@ -1,6 +1,7 @@
 package com.abo.product.model;
 
-import com.abo.product.dto.ProductDTO;
+import com.abo.product.converter.DTOConverter;
+import com.abo.shoppingclient.dto.ProductDTO;
 
 import javax.persistence.*;
 
@@ -66,17 +67,4 @@ public class Product {
         this.category = category;
     }
 
-    public static Product convert(ProductDTO productDTO) {
-        Product product = new Product();
-        product.setName(productDTO.getName());
-        product.setPrice(productDTO.getPrice());
-        product.setDescription(productDTO.getDescription());
-        product.setProductIdentifier(
-                productDTO.getProductIdentifier());
-        if (productDTO.getCategory() != null) {
-            product.setCategory(
-                    Category.convert(productDTO.getCategory()));
-        }
-        return product;
-    }
 }

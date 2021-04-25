@@ -1,9 +1,10 @@
 package com.abo.product.service;
 
-import com.abo.product.dto.ProductDTO;
+import com.abo.product.converter.DTOConverter;
 import com.abo.product.exception.ProductNotFoundException;
 import com.abo.product.model.Product;
 import com.abo.product.repository.ProductRepository;
+import com.abo.shoppingclient.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class ProductService {
         List<Product> products = productRepository.findAll();
         return products
                 .stream()
-                .map(ProductDTO::convert)
+                .map(DTOConverter::convert)
                 .collect(Collectors.toList());
     }
 
@@ -31,7 +32,7 @@ public class ProductService {
                 productRepository.getProductByCategory(categoryId);
         return products
                 .stream()
-                .map(ProductDTO::convert)
+                .map(DTOConverter::convert)
                 .collect(Collectors.toList());
     }
 
@@ -39,15 +40,15 @@ public class ProductService {
             String productIdentifier) {
         Product product = productRepository.findByProductIdentifier(productIdentifier);
         if (product != null) {
-            return ProductDTO.convert(product);
+            return DTOConverter.convert(product);
         }
         return null;
     }
 
     public ProductDTO save(ProductDTO productDTO) {
         Product product =
-                productRepository.save(Product.convert(productDTO));
-        return ProductDTO.convert(product);
+                productRepository.save(DTOConverter.convert(productDTO));
+        return DTOConverter.convert(product);
     }
 
     public Product delete(long ProductId)

@@ -1,6 +1,6 @@
 package com.abo.shopping.model;
 
-import com.abo.shopping.dto.ItemDTO;
+import com.abo.shoppingclient.dto.ItemDTO;
 
 import javax.persistence.Embeddable;
 
@@ -24,14 +24,6 @@ public class Item {
 
     public void setPrice(Float price) {
         this.price = price;
-    }
-
-    public static Item convert(ItemDTO itemDTO) {
-        Item item = new Item();
-        item.setProductIdentifier(
-                itemDTO.getProductIdentifier());
-        item.setPrice(itemDTO.getPrice());
-        return item;
     }
 
 }

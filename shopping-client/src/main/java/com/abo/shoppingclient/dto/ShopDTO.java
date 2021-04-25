@@ -1,6 +1,4 @@
-package com.abo.shopping.dto;
-
-import com.abo.shopping.model.Shop;
+package com.abo.shoppingclient.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -50,10 +48,4 @@ public class ShopDTO {
         this.items = items;
     }
 
-    public static ShopDTO convert(Shop shop) {
-        ShopDTO shopDTO = new ShopDTO();
-        shopDTO.setUserIdentifier(shop.getUserIdentifier());
-        shopDTO.setTotal(shop.getTotal());
-        return shopDTO;
-    }
 }

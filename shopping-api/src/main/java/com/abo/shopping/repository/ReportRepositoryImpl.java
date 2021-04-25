@@ -1,7 +1,7 @@
 package com.abo.shopping.repository;
 
-import com.abo.shopping.dto.ShopReportDTO;
 import com.abo.shopping.model.Shop;
+import com.abo.shoppingclient.dto.ShopReportDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

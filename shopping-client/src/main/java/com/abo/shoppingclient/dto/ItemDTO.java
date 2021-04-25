@@ -1,6 +1,4 @@
-package com.abo.shopping.dto;
-
-import com.abo.shopping.model.Item;
+package com.abo.shoppingclient.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -28,11 +26,4 @@ public class ItemDTO {
         this.price = price;
     }
 
-    public static ItemDTO convert(Item item) {
-        ItemDTO itemDTO = new ItemDTO();
-        itemDTO.setProductIdentifier(
-                item.getProductIdentifier());
-        itemDTO.setPrice(item.getPrice());
-        return itemDTO;
-    }
 }

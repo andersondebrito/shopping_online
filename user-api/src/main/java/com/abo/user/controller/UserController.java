@@ -1,6 +1,6 @@
 package com.abo.user.controller;
 
-import com.abo.user.dto.UserDTO;
+import com.abo.shoppingclient.dto.UserDTO;
 import com.abo.user.exception.UserNotFoundException;
 import com.abo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

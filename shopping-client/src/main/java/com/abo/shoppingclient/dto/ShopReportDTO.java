@@ -1,4 +1,4 @@
-package com.abo.shopping.dto;
+package com.abo.shoppingclient.dto;
 
 public class ShopReportDTO {
 

@@ -1,9 +1,9 @@
 package com.abo.product.controller;
 
-import com.abo.product.dto.ProductDTO;
 import com.abo.product.exception.ProductNotFoundException;
 import com.abo.product.model.Product;
 import com.abo.product.service.ProductService;
+import com.abo.shoppingclient.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
