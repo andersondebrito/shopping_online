@@ -1,7 +1,7 @@
 package com.abo.user.controller;
 
 import com.abo.shoppingclient.dto.UserDTO;
-import com.abo.user.exception.UserNotFoundException;
+import com.abo.shoppingclient.exception.UserNotFoundException;
 import com.abo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +25,15 @@ public class UserController {
     UserDTO findById(@PathVariable Long id) {
         return userService.findById(id);
     }
+
     @PostMapping("/user")
     UserDTO newUser(@RequestBody UserDTO userDTO) {
         return userService.save(userDTO);
     }
+
     @GetMapping("/user/identification/{identification}")
-    UserDTO findByCpf(@PathVariable String identification) {
-        return userService.findByIdentification(identification);
+    UserDTO findByIdentification(@RequestParam(name="key", required=true) String key,@PathVariable String identification) {
+        return userService.findByIdentificationAndKey(identification,key);
     }
 
     @DeleteMapping("/user/{id}")

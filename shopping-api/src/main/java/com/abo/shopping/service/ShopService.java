@@ -4,10 +4,7 @@ import com.abo.shopping.converter.DTOConverter;
 import com.abo.shopping.model.Shop;
 import com.abo.shopping.repository.ReportRepository;
 import com.abo.shopping.repository.ShopRepository;
-import com.abo.shoppingclient.dto.ItemDTO;
-import com.abo.shoppingclient.dto.ProductDTO;
-import com.abo.shoppingclient.dto.ShopDTO;
-import com.abo.shoppingclient.dto.ShopReportDTO;
+import com.abo.shoppingclient.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,20 +63,19 @@ public class ShopService {
         return null;
     }
 
-    public ShopDTO save(ShopDTO shopDTO) {
-        if (userService
-                .getUserByCpf(shopDTO.getUserIdentifier()) == null) {
-            return null;
-        }
-        if (!validateProducts(shopDTO.getItems())) {
-            return null;
-        }
+    public ShopDTO save(ShopDTO shopDTO, String key) {
+        UserDTO userDTO = userService
+                .getUserByIdentification(shopDTO.getUserIdentifier(), key);
+
+        validateProducts(shopDTO.getItems());
         shopDTO.setTotal(shopDTO.getItems()
                 .stream()
                 .map(x -> x.getPrice())
                 .reduce((float) 0, Float::sum));
+
         Shop shop = DTOConverter.convert(shopDTO);
         shop.setDate(new Date());
+
         shop = shopRepository.save(shop);
         return DTOConverter.convert(shop);
     }
@@ -96,6 +92,7 @@ public class ShopService {
                 .map(DTOConverter::convert)
                 .collect(Collectors.toList());
     }
+
     public ShopReportDTO getReportByDate(
             Date startDate,
             Date endDate) {

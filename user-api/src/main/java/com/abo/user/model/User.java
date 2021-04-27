@@ -18,6 +18,7 @@ public class User {
     private String email;
     private String phone;
     private Date registerDate;
+    private String key;
 
     public long getId() {
         return id;
@@ -73,5 +74,13 @@ public class User {
 
     public void setRegisterDate(Date registerDate) {
         this.registerDate = registerDate;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

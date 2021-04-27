@@ -1,7 +1,7 @@
 package com.abo.shopping.converter;
 
-import com.abo.shopping.model.Item;
 import com.abo.shopping.model.Shop;
+import com.abo.shopping.model.Item;
 import com.abo.shoppingclient.dto.ItemDTO;
 import com.abo.shoppingclient.dto.ShopDTO;
 

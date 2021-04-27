@@ -10,6 +10,10 @@ public class DTOConverter {
         userDTO.setName(user.getName());
         userDTO.setAddress(user.getAddress());
         userDTO.setIdentification(user.getIdentification());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setRegisterDate(user.getRegisterDate());
+        userDTO.setPhone(user.getPhone());
+        userDTO.setKey(user.getKey());
         return userDTO;
     }
 
@@ -18,6 +22,10 @@ public class DTOConverter {
         user.setName(userDTO.getName());
         user.setAddress(userDTO.getAddress());
         user.setIdentification(userDTO.getIdentification());
+        user.setEmail(userDTO.getEmail());
+        user.setRegisterDate(userDTO.getRegisterDate());
+        user.setPhone(userDTO.getPhone());
+        user.setKey(userDTO.getKey());
         return user;
     }
 }
