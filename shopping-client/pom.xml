@@ -7,18 +7,7 @@
     <groupId>com.abo</groupId>
     <artifactId>shopping-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>16</source>
-                    <target>16</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <name>shopping-client</name>
 
     <properties>
         <java.version>11</java.version>
@@ -50,6 +39,5 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-    <name>shopping-client</name>
 
 </project>
